@@ -1,0 +1,178 @@
+CREATE TABLE EMPLOYEE (
+  empId INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  dept TEXT NOT NULL,
+  salary int
+);
+
+-- insert
+INSERT INTO EMPLOYEE VALUES (0001, 'Clark', 'Sales    ',1000);
+INSERT INTO EMPLOYEE VALUES (0002, 'Dave', 'Accounting',2000);
+INSERT INTO EMPLOYEE VALUES (0003, 'Ava', 'Sales      ',1000);
+
+-- fetch 
+SELECT count(*)  count FROM EMPLOYEE WHERE dept = 'Sales';
+
+select count(*) COUNT 
+from EMPLOYEE;
+
+select max(salary) as average
+from EMPLOYEE;
+
+select ucase(name) name,salary from EMPLOYEE;
+
+select name,char_length(name) no_of_length
+from EMPLOYEE;
+
+select name,concat("RS.",FORMAT(salary,3)) salary
+FROM EMPLOYEE;
+
+SELECT name,left(dept,3)
+from EMPLOYEE;
+
+SELECT date
+FROM EMPLOYEE;
+CREATE TABLE EMPLOYEE (
+  empId INT PRIMARY KEY AUTO_INCREMENT = 10,
+  name varchar(30) NOT NULL,
+  dept varchar(30) default 'unassigned',
+  salary int,
+  pan varchar(30),
+  check (salary>5000)
+);
+
+-- insert
+
+INSERT INTO EMPLOYEE (name,salary,pan) VALUES ('Clark',9000,9);
+INSERT INTO EMPLOYEE (name,salary,pan) VALUES ('swa',8000,9);
+
+
+-- fetch 
+select * from EMPLOYEE;
+
+create table branch(
+branch_id int primary key auto_increment,
+br_name varchar(30) not null,
+addr varchar(200));
+	
+create table employee(
+emp_id int primary key auto_increment,
+name varchar(30) not null,
+job_desc varchar(20),
+salary int,
+branch_id int,
+constraint fk_branchid foreign key(branch_id) references branch(branch_id)
+);
+
+insert into branch values(1,"chennai   ","16 abc road");
+insert into branch values(2,"coimbatore","120 15th block");
+insert into branch values(3,"mumbai    ","25 xyz road");
+insert into branch values(4,"hydrebad   ","32 10th street");
+
+insert into employee values(1,"ram","admin",10000000,2);
+insert into employee values(2,"harini","manager",20000000,1);
+insert into employee values(3,"george","sales",30000000,3);
+insert into employee values(4,"ramya","sales",40000000,4);
+insert into employee values(5,"meena","hr",50000000,2);
+insert into employee values(6,"ashok","manager",60000000,1);
+insert into employee values(7,"swathi","admin",70000000,2);
+
+select * from employee;
+select * from branch;
+
+select employee.emp_id,employee.name,employee.job_desc,branch.br_name
+from employee
+inner join branch
+on employee.branch_id=branch.branch_id
+order by employee.emp_id;
+
+//using alias name and left,right//
+select e.emp_id,e.name,e.job_desc,b.br_name
+from employee as e
+right join branch as b
+on e.branch_id=b.branch_id
+order by e.emp_id;
+
+create table branch(
+branch_id int primary key auto_increment,
+br_name varchar(30) not null,
+addr varchar(200));
+	
+create table employee(
+emp_id int primary key auto_increment,
+name varchar(30) not null,
+job_desc varchar(20),
+salary int,
+branch_id int,
+constraint fk_branchid foreign key(branch_id) references branch(branch_id)
+);
+
+insert into branch values(1,"chennai   ","16 abc road");
+insert into branch values(2,"coimbatore","120 15th block");
+insert into branch values(3,"mumbai    ","25 xyz road");
+insert into branch values(4,"hydrebad   ","32 10th street");
+
+insert into employee values(1,"ram","admin",10000000,2);
+insert into employee values(2,"harini","manager",20000000,1);
+insert into employee values(3,"george","sales",30000000,2);
+insert into employee values(4,"ramya","sales",40000000,2);
+insert into employee values(5,"meena","hr",50000000,2);
+insert into employee values(6,"ashok","manager",60000000,1);
+insert into employee values(7,"swathi","admin",70000000,2);
+
+select * from employee;
+select * from branch;
+
+select e.emp_id,e.name,e.job_desc,b.br_name
+from employee AS e
+right join branch AS b
+on e.branch_id=b.branch_id
+order by e.emp_id;
+--by using where cluase--
+select employee.emp_id,employee.name,employee.job_desc,branch.br_name
+from employee,branch
+where employee.branch_id=branch.branch_id;
+
+--cross join--
+select e.emp_id,e.name,e.job_desc,b.br_name
+from employee AS e
+cross join branch AS b
+--cross using select--
+order by e.emp_id;
+select employee.emp_id,employee.name,employee.job_desc,branch.br_name
+from employee
+cross join branch;
+
+--br_name and employee count--
+select branch.br_name,count(employee.emp_id) emp_count
+from branch
+join employee
+on employee.branch_id=branch.branch_id
+group by employee.branch_id;
+output:
+br_name 	emp_count
+chennai   	2
+coimbatore	5
+
+create table clients(
+client_id int primary key,
+location varchar(30) not null,
+addr varchar(30));
+
+insert into clients values(1,"newyork","25 10 th block");
+insert into clients values(2,"coimbatore","120 15th block");
+insert into clients values(3,"chennai","270 15th block");
+
+create table branch(
+branch_id int primary key,
+br_name varchar(30),
+addr varchar(30));
+
+insert into branch values(3,"trichy","12 13th block");
+insert into branch values(4,"vellore","14 16th block");
+insert into branch values(5,"trichy","12 13th block");
+
+select * from branch
+union all
+select * from clients;
+
